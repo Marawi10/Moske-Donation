@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<title>Donationsstatus – Moskéhyra</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f7f7f7;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 var(--progress), #ddd 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#donorList {
+    width: 300px;
+    margin: 20px auto;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Donationsstatus för Moskéhyra</h1>
+<h3>Mål: 15 000 kr</h3>
+
+<div class="circle" id="circle" style="--progress: 0deg;">
+    <span id="percentage">0%</span>
+</div>
+
+<h3>Total insamlad summa: <span id="total">0</span> kr</h3>
+
+<h2>Lägg till donation</h2>
+
+<input type="text" id="name" placeholder="Namn" />
+<input type="number" id="amount" placeholder="Belopp" />
+<button onclick="addDonation()">Lägg till</button>
+
+<h2>Donationslista</h2>
+<div id="donorList"></div>
+
+<script>
+let total = 0;
+const goal = 15000;
+
+function addDonation() {
+    let name = document.getElementById("name").value;
+    let amount = parseInt(document.getElementById("amount").value);
+
+    if (!name || !amount) {
+        alert("Fyll i både namn och belopp!");
+        return;
+    }
+
+    total += amount;
+
+    // Uppdatera text
+    document.getElementById("total").innerText = total;
+
+    // Uppdatera procent
+    let percentage = Math.min((total / goal) * 100, 100);
+    let degrees = percentage * 3.6;
+
+    document.getElementById("circle").style.setProperty("--progress", degrees + "deg");
+    document.getElementById("percentage").innerText = Math.round(percentage) + "%";
+
+    // Lägg till i listan
+    let list = document.getElementById("donorList");
+    let item = document.createElement("p");
+    item.innerText = name + ": " + amount + " kr";
+    list.appendChild(item);
+
+    // Töm fälten
+    document.getElementById("name").value = "";
+    document.getElementById("amount").value = "";
+}
+</script>
+
+</body>
+</html>
