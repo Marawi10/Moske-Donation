@@ -1,0 +1,108 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="sv">\
+<head>\
+<meta charset="UTF-8">\
+<title>Donationsstatus \'96 Mosk\'e9hyra</title>\
+\
+<style>\
+body \{\
+    font-family: Arial, sans-serif;\
+    text-align: center;\
+    background: #f7f7f7;\
+\}\
+\
+h1 \{\
+    margin-top: 20px;\
+\}\
+\
+.circle \{\
+    width: 200px;\
+    height: 200px;\
+    border-radius: 50%;\
+    background: conic-gradient(#4caf50 var(--progress), #ddd 0);\
+    display: flex;\
+    justify-content: center;\
+    align-items: center;\
+    margin: 30px auto;\
+    font-size: 24px;\
+    font-weight: bold;\
+\}\
+\
+#donorList \{\
+    width: 300px;\
+    margin: 20px auto;\
+    background: white;\
+    padding: 15px;\
+    border-radius: 10px;\
+    text-align: left;\
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);\
+\}\
+</style>\
+</head>\
+\
+<body>\
+\
+<h1>Donationsstatus f\'f6r Mosk\'e9hyra</h1>\
+<h3>M\'e5l: 15 000 kr</h3>\
+\
+<div class="circle" id="circle" style="--progress: 0deg;">\
+    <span id="percentage">0%</span>\
+</div>\
+\
+<h3>Total insamlad summa: <span id="total">0</span> kr</h3>\
+\
+<h2>L\'e4gg till donation</h2>\
+\
+<input type="text" id="name" placeholder="Namn" />\
+<input type="number" id="amount" placeholder="Belopp" />\
+<button onclick="addDonation()">L\'e4gg till</button>\
+\
+<h2>Donationslista</h2>\
+<div id="donorList"></div>\
+\
+<script>\
+let total = 0;\
+const goal = 15000;\
+\
+function addDonation() \{\
+    let name = document.getElementById("name").value;\
+    let amount = parseInt(document.getElementById("amount").value);\
+\
+    if (!name || !amount) \{\
+        alert("Fyll i b\'e5de namn och belopp!");\
+        return;\
+    \}\
+\
+    total += amount;\
+\
+    // Uppdatera text\
+    document.getElementById("total").innerText = total;\
+\
+    // Uppdatera procent\
+    let percentage = Math.min((total / goal) * 100, 100);\
+    let degrees = percentage * 3.6;\
+\
+    document.getElementById("circle").style.setProperty("--progress", degrees + "deg");\
+    document.getElementById("percentage").innerText = Math.round(percentage) + "%";\
+\
+    // L\'e4gg till i listan\
+    let list = document.getElementById("donorList");\
+    let item = document.createElement("p");\
+    item.innerText = name + ": " + amount + " kr";\
+    list.appendChild(item);\
+\
+    // T\'f6m f\'e4lten\
+    document.getElementById("name").value = "";\
+    document.getElementById("amount").value = "";\
+\}\
+</script>\
+\
+</body>\
+</html>}
